@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAZUMI - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-brown: #6D4C41;
+            --dark-brown: #4E342E;
+            --light-brown: #D7CCC8;
+            --cream: #F5F5F5;
+            --white: #FFFFFF;
+            --text-dark: #333333;
+            --text-light: #777777;
+            --accent-gold: #C9B037;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Montserrat', sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-body); color: var(--text-dark); background-color: var(--cream); line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background-color: var(--white); box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); position: sticky; top: 0; z-index: 1000; }
+        .top-nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; }
+        .logo { font-family: var(--font-heading); font-size: 32px; font-weight: 700; color: var(--primary-brown); text-decoration: none; }
+        .main-nav ul { display: flex; list-style: none; }
+        .main-nav li { margin-left: 25px; }
+        .main-nav a { text-decoration: none; color: var(--text-dark); font-weight: 500; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; }
+        .main-nav a:hover { color: var(--primary-brown); }
+        .main-nav .dropdown { position: relative; }
+        .main-nav .dropdown-menu { display: none; position: absolute; top: 100%; left: 0; background-color: var(--white); box-shadow: 0 5px 15px rgba(0,0,0,0.1); list-style: none; padding: 10px 0; margin-top: 15px; min-width: 200px; border-radius: 4px; z-index: 1010; }
+        .main-nav .dropdown:hover > .dropdown-menu { display: block; }
+        .main-nav .dropdown-menu li { margin: 0; }
+        .main-nav .dropdown-menu a { display: block; padding: 10px 20px; color: var(--text-dark); text-transform: none; font-size: 14px; letter-spacing: 0; font-weight: 400; }
+        .main-nav .dropdown-menu a:hover { background-color: var(--cream); color: var(--primary-brown); }
+        .nav-icons { display: flex; align-items: center; }
+        .nav-icons a { margin-left: 15px; color: var(--primary-brown); font-size: 18px; transition: color 0.3s; }
+        .nav-icons a:hover { color: var(--dark-brown); }
+        .admin-btn { background-color: var(--primary-brown); color: var(--white); padding: 8px 15px; border-radius: 4px; text-decoration: none; font-size: 14px; margin-left: 15px; transition: background-color 0.3s; cursor: pointer; }
+        .admin-btn:hover { background-color: var(--dark-brown); }
+        footer { background-color: var(--dark-brown); color: var(--white); padding: 60px 0 30px; margin-top: auto; }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; }
+        .footer-column h3 { font-size: 18px; margin-bottom: 20px; position: relative; padding-bottom: 10px; font-family: var(--font-heading); }
+        .footer-column h3:after { content: ''; position: absolute; left: 0; bottom: 0; width: 30px; height: 2px; background-color: var(--accent-gold); }
+        .footer-column ul { list-style: none; }
+        .footer-column ul li { margin-bottom: 10px; }
+        .footer-column a { color: var(--light-brown); text-decoration: none; transition: color 0.3s; }
+        .footer-column a:hover { color: var(--white); }
+        .social-icons { display: flex; gap: 15px; margin-top: 20px; }
+        .social-icons a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: rgba(255, 255, 255, 0.1); border-radius: 50%; transition: background-color 0.3s; }
+        .social-icons a:hover { background-color: var(--primary-brown); }
+        .copyright { text-align: center; padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 14px; color: var(--light-brown); }
+        
+        /* Auth Page Styles */
+        .auth-section { flex-grow: 1; display: flex; align-items: center; justify-content: center; padding: 40px 0; }
+        .auth-container { max-width: 400px; width: 100%; background-color: var(--white); padding: 40px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .auth-container h1 { font-family: var(--font-heading); text-align: center; margin-bottom: 30px; color: var(--dark-brown); }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; }
+        .form-group input { width: 100%; padding: 12px; border: 1px solid var(--light-brown); border-radius: 4px; }
+        .auth-btn { display: block; width: 100%; padding: 15px; background: var(--primary-brown); color: var(--white); text-align: center; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; border: none; cursor: pointer; transition: background-color 0.3s; border-radius: 4px; }
+        .auth-btn:hover { background-color: var(--dark-brown); }
+        .auth-switch-link { text-align: center; margin-top: 20px; }
+        .auth-switch-link a { color: var(--primary-brown); text-decoration: none; font-weight: 500; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="top-nav">
+                <a href="index.html" class="logo">KAZUMI</a>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="drop-btn">Shop <i class="fas fa-chevron-down" style="font-size: 12px; margin-left: 5px;"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="t-shirts.html">T-Shirt</a></li>
+                                <li><a href="shirts.html">Shirt</a></li>
+                                <li><a href="pants.html">Pants</a></li>
+                                <li><a href="jackets.html">Jacket</a></li>
+                                <li><a href="#">Accessories</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="index.html#special-collection">Collections</a></li>
+                        <li><a href="index.html#custom-order-section">Custom Order</a></li>
+                    </ul>
+                </nav>
+                <div class="nav-icons">
+                    <a href="#"><i class="fas fa-search"></i></a>
+                    <a href="cart.html"><i class="fas fa-shopping-bag"></i></a>
+                    <a href="login.html"><i class="fas fa-user"></i></a>
+                    <a class="admin-btn" href="#"><i class="fas fa-cog"></i> Admin</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="auth-section">
+        <div class="auth-container">
+            <h1>Login</h1>
+            <form action="#" method="POST">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="auth-btn">Login</button>
+            </form>
+            <div class="auth-switch-link">
+                <p>Belum punya akun? <a href="register.html">Daftar di sini</a></p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>INFORMASI KAMI</h3>
+                    <ul>
+                        <li><a href="index.html#about-us">Tentang KAZUMI</a></li>
+                        <li><a href="#">Sejarah Perusahaan</a></li>
+                        <li><a href="#">Karir</a></li>
+                        <li><a href="#">Ketentuan Kebijakan</a></li>
+                        <li><a href="#">Lokasi Store</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>BANTUAN</h3>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Kebijakan Pengembalian</a></li>
+                        <li><a href="#">Click & Collect</a></li>
+                        <li><a href="#">Pengiriman</a></li>
+                        <li><a href="#">Pembayaran</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>KATEGORI PRODUK</h3>
+                    <ul>
+                        <li><a href="t-shirts.html">T-Shirt</a></li>
+                        <li><a href="shirts.html">Shirt</a></li>
+                        <li><a href="pants.html">Pants</a></li>
+                        <li><a href="jackets.html">Jacket</a></li>
+                        <li><a href="#">Accessories</a></li>
+                        <li><a href="index.html#promo">Sale</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>HUBUNGI KAMI</h3>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +62 21 1234 5678</li>
+                        <li><i class="fas fa-envelope"></i> info@kazumi.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Jl. Fashion No. 123, Jakarta</li>
+                    </ul>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 KAZUMI. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

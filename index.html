@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAZUMI - Fashion Pria Elegant</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-brown: #6D4C41;
+            --dark-brown: #4E342E;
+            --light-brown: #D7CCC8;
+            --cream: #F5F5F5;
+            --white: #FFFFFF;
+            --text-dark: #333333;
+            --text-light: #777777;
+            --accent-gold: #C9B037;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Montserrat', sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-body); color: var(--text-dark); background-color: var(--white); line-height: 1.6; }
+        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background-color: var(--white); box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); position: sticky; top: 0; z-index: 1000; }
+        .top-nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; }
+        .logo { font-family: var(--font-heading); font-size: 32px; font-weight: 700; color: var(--primary-brown); text-decoration: none; }
+        .main-nav ul { display: flex; list-style: none; }
+        .main-nav li { margin-left: 25px; }
+        .main-nav a { text-decoration: none; color: var(--text-dark); font-weight: 500; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; }
+        .main-nav a:hover { color: var(--primary-brown); }
+        .admin-btn { background-color: var(--primary-brown); color: var(--white); padding: 8px 15px; border-radius: 4px; text-decoration: none; font-size: 14px; margin-left: 15px; transition: background-color 0.3s; cursor: pointer; }
+        .admin-btn:hover { background-color: var(--dark-brown); }
+        .main-nav .dropdown { position: relative; }
+        .main-nav .dropdown-menu { display: none; position: absolute; top: 100%; left: 0; background-color: var(--white); box-shadow: 0 5px 15px rgba(0,0,0,0.1); list-style: none; padding: 10px 0; margin-top: 15px; min-width: 200px; border-radius: 4px; z-index: 1010; }
+        .main-nav .dropdown:hover > .dropdown-menu { display: block; }
+        .main-nav .dropdown-menu li { margin: 0; }
+        .main-nav .dropdown-menu a { display: block; padding: 10px 20px; color: var(--text-dark); text-transform: none; font-size: 14px; letter-spacing: 0; font-weight: 400; }
+        .main-nav .dropdown-menu a:hover { background-color: var(--cream); color: var(--primary-brown); }
+        .nav-icons { display: flex; align-items: center; }
+        .nav-icons a { margin-left: 15px; color: var(--primary-brown); font-size: 18px; transition: color 0.3s; }
+        .nav-icons a:hover { color: var(--dark-brown); }
+        .hero { background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80'); background-size: cover; background-position: center; height: 80vh; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--white); }
+        .hero-content h1 { font-family: var(--font-heading); font-size: 48px; margin-bottom: 20px; text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); }
+        .hero-content p { font-size: 18px; margin-bottom: 30px; max-width: 700px; margin-left: auto; margin-right: auto; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); }
+        .btn { display: inline-block; background-color: var(--primary-brown); color: var(--white); padding: 12px 30px; text-decoration: none; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; border: none; cursor: pointer; transition: background-color 0.3s; }
+        .btn:hover { background-color: var(--dark-brown); }
+        .btn-light { background-color: transparent; border: 2px solid var(--white); }
+        .btn-light:hover { background-color: var(--white); color: var(--primary-brown); }
+        .popular-categories, .special-collection, .custom-section, .bulk-purchase, .promo-section, .download-app { padding: 80px 0; }
+        .popular-categories, .custom-section, .download-app { background-color: var(--cream); }
+        .section-title { text-align: center; margin-bottom: 50px; font-family: var(--font-heading); font-size: 32px; color: var(--dark-brown); position: relative; }
+        .section-title:after { content: ''; display: block; width: 60px; height: 3px; background-color: var(--primary-brown); margin: 15px auto 0; }
+        .categories-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 25px; }
+        .category-card-link { text-decoration: none; }
+        .category-card { position: relative; height: 300px; overflow: hidden; border-radius: 8px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); transition: transform 0.3s; }
+        .category-card-link:hover .category-card { transform: translateY(-5px); }
+        .category-card img { width: 100%; height: 100%; object-fit: cover; }
+        .category-name { position: absolute; bottom: 0; left: 0; right: 0; background-color: rgba(109, 76, 65, 0.85); color: var(--white); padding: 15px; text-align: center; text-transform: uppercase; font-weight: 500; letter-spacing: 1px; }
+        .collection-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .collection-item { position: relative; height: 400px; overflow: hidden; border-radius: 8px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); }
+        .collection-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .collection-item:hover img { transform: scale(1.05); }
+        .collection-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(78, 52, 46, 0.8)); display: flex; flex-direction: column; justify-content: flex-end; padding: 20px; color: var(--white); }
+        .collection-tag { background-color: var(--accent-gold); color: var(--dark-brown); padding: 5px 10px; display: inline-block; font-size: 12px; text-transform: uppercase; margin-bottom: 10px; font-weight: 600; border-radius: 3px; }
+        
+        /* Custom Order Section */
+        .custom-section {
+            background-color: var(--cream);
+            padding: 80px 0;
+            text-align: center;
+        }
+        .custom-section .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .custom-section .process-step {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .custom-section .process-step:hover {
+            transform: translateY(-5px);
+        }
+        .custom-section .process-step i {
+            font-size: 40px;
+            color: var(--primary-brown);
+            margin-bottom: 20px;
+        }
+        .custom-section .process-step h4 {
+            font-family: var(--font-heading);
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--dark-brown);
+        }
+        .custom-section .process-step p {
+            font-size: 15px;
+            color: var(--text-light);
+        }
+        .custom-section .btn {
+            margin-top: 50px;
+        }
+
+        /* Bulk Purchase Section */
+        .bulk-purchase {
+            background-color: var(--white);
+            padding: 80px 0;
+            text-align: center;
+        }
+        .bulk-purchase .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .bulk-purchase .feature-item {
+            background-color: var(--cream);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        .bulk-purchase .feature-item i {
+            font-size: 30px;
+            color: var(--primary-brown);
+            margin-bottom: 15px;
+        }
+        .bulk-purchase .feature-item h4 {
+            font-family: var(--font-body);
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: var(--dark-brown);
+        }
+        .bulk-purchase .feature-item p {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+        .bulk-purchase .btn {
+            margin-top: 50px;
+        }
+
+        /* Promo Section */
+        .promo-section {
+            background-color: var(--cream);
+            padding: 80px 0;
+            text-align: center;
+        }
+        .promo-section .promo-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+        .promo-section .promo-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            padding: 30px;
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .promo-section .promo-card img {
+            max-width: 150px;
+            margin-bottom: 20px;
+        }
+        .promo-section .promo-card h3 {
+            font-family: var(--font-heading);
+            font-size: 28px;
+            color: var(--dark-brown);
+            margin-bottom: 15px;
+        }
+        .promo-section .promo-card p {
+            font-size: 16px;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+        .promo-section .promo-card .promo-details {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+        .promo-section .promo-card .promo-item {
+            flex: 1;
+            min-width: 200px;
+            padding: 15px;
+            border: 1px dashed var(--light-brown);
+            border-radius: 5px;
+            background-color: #fffaf7;
+        }
+        .promo-section .promo-card .promo-item h4 {
+            font-size: 18px;
+            color: var(--primary-brown);
+            margin-bottom: 5px;
+        }
+        .promo-section .promo-card .promo-item span {
+            font-size: 14px;
+            color: var(--text-dark);
+        }
+        .promo-section .app-download {
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .promo-section .app-download p {
+            font-size: 16px;
+            color: var(--text-dark);
+        }
+        .promo-section .app-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .promo-section .app-buttons a img {
+            height: 45px;
+            transition: transform 0.3s;
+        }
+        .promo-section .app-buttons a img:hover {
+            transform: translateY(-3px);
+        }
+
+        footer { background-color: var(--dark-brown); color: var(--white); padding: 60px 0 30px; }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; }
+        .footer-column h3 { font-size: 18px; margin-bottom: 20px; position: relative; padding-bottom: 10px; font-family: var(--font-heading); }
+        .footer-column h3:after { content: ''; position: absolute; left: 0; bottom: 0; width: 30px; height: 2px; background-color: var(--accent-gold); }
+        .footer-column ul { list-style: none; }
+        .footer-column ul li { margin-bottom: 10px; }
+        .footer-column a { color: var(--light-brown); text-decoration: none; transition: color 0.3s; }
+        .footer-column a:hover { color: var(--white); }
+        .social-icons { display: flex; gap: 15px; margin-top: 20px; }
+        .social-icons a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: rgba(255, 255, 255, 0.1); border-radius: 50%; transition: background-color 0.3s; }
+        .social-icons a:hover { background-color: var(--primary-brown); }
+        .copyright { text-align: center; padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 14px; color: var(--light-brown); }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="top-nav">
+                <a href="index.html" class="logo">KAZUMI</a>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="drop-btn">Shop <i class="fas fa-chevron-down" style="font-size: 12px; margin-left: 5px;"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="t-shirts.html">T-Shirt</a></li>
+                                <li><a href="shirts.html">Shirt</a></li>
+                                <li><a href="pants.html">Pants</a></li>
+                                <li><a href="jackets.html">Jacket</a></li>
+                                <li><a href="#">Accessories</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#special-collection">Collections</a></li>
+                        <li><a href="#custom-order-section">Custom Order</a></li>
+                        <li><a href="#bulk-purchase-section">Bulk Order</a></li>
+                        <li><a href="#promo-section">Promo</a></li>
+                    </ul>
+                </nav>
+                <div class="nav-icons">
+                    <a href="#"><i class="fas fa-search"></i></a>
+                    <a href="cart.html"><i class="fas fa-shopping-bag"></i></a>
+                    <a href="login.html"><i class="fas fa-user"></i></a>
+                    <a class="admin-btn" href="#"><i class="fas fa-cog"></i> Admin</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>ELEVATE YOUR STYLE</h1>
+                <p>Discover the perfect blend of sophistication and modern fashion for the contemporary man</p>
+                <a href="t-shirts.html" class="btn">Explore Collection</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kategori Populer -->
+    <section class="popular-categories" id="categories">
+        <div class="container">
+            <h2 class="section-title">Produk Terlaris</h2>
+            <div class="categories-grid">
+                <a href="t-shirts.html" class="category-card-link">
+                    <div class="category-card">
+                        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="T-Shirt">
+                        <div class="category-name">T-Shirt</div>
+                    </div>
+                </a>
+                <a href="shirts.html" class="category-card-link">
+                    <div class="category-card">
+                        <img src="https://images.unsplash.com/photo-1603252109360-7049524f3a15?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Shirt">
+                        <div class="category-name">Shirt</div>
+                    </div>
+                </a>
+                <a href="pants.html" class="category-card-link">
+                    <div class="category-card">
+                        <img src="https://images.unsplash.com/photo-1605518216938-6c52b6b82195?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Pants">
+                        <div class="category-name">Pants</div>
+                    </div>
+                </a>
+                <a href="jackets.html" class="category-card-link">
+                    <div class="category-card">
+                        <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Jacket">
+                        <div class="category-name">Jacket</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Koleksi Spesial -->
+    <section class="special-collection" id="special-collection">
+        <div class="container">
+            <h2 class="section-title">Koleksi Spesial</h2>
+            <div class="collection-grid">
+                <a href="product-detail.html" style="text-decoration: none; color: inherit;">
+                    <div class="collection-item">
+                        <img src="https://images.unsplash.com/photo-1593030103066-0093718efeb9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Executive Collection">
+                        <div class="collection-overlay">
+                            <span class="collection-tag">New</span>
+                            <h3>Executive Collection</h3>
+                        </div>
+                    </div>
+                </a>
+                <a href="product-detail.html" style="text-decoration: none; color: inherit;">
+                    <div class="collection-item">
+                        <img src="https://images.unsplash.com/photo-1505022610485-0249ba5b3675?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Limited Edition">
+                        <div class="collection-overlay">
+                            <span class="collection-tag">Limited</span>
+                            <h3>Limited Edition</h3>
+                        </div>
+                    </div>
+                </a>
+                <a href="product-detail.html" style="text-decoration: none; color: inherit;">
+                    <div class="collection-item">
+                        <img src="https://images.unsplash.com/photo-1618932260643-eee4a2f652a6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Weekend Wear">
+                        <div class="collection-overlay">
+                            <span class="collection-tag">Casual</span>
+                            <h3>Weekend Wear</h3>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Custom Order Section -->
+    <section class="custom-section" id="custom-order-section">
+        <div class="container">
+            <h2 class="section-title">Pesan Kustom Anda</h2>
+            <p style="text-align: center; max-width: 700px; margin: 0 auto 40px; color: var(--text-light);">
+                Wujudkan gaya pribadi Anda dengan layanan pesanan kustom KAZUMI. Dari ukuran khusus hingga desain unik, kami siap membantu Anda menciptakan pakaian yang sempurna.
+            </p>
+            <div class="process-grid">
+                <div class="process-step">
+                    <i class="fas fa-ruler-combined"></i>
+                    <h4>Konsultasi & Pengukuran</h4>
+                    <p>Tim ahli kami akan melakukan pengukuran presisi untuk memastikan hasil yang sesuai dengan bentuk tubuh Anda.</p>
+                </div>
+                <div class="process-step">
+                    <i class="fas fa-palette"></i>
+                    <h4>Pilih Material & Desain</h4>
+                    <p>Pilih dari berbagai bahan premium dan sesuaikan desain sesuai preferensi pribadi Anda.</p>
+                </div>
+                <div class="process-step">
+                    <i class="fas fa-cut"></i>
+                    <h4>Produksi & Fitting</h4>
+                    <p>Pakaian Anda akan dibuat oleh pengrajin ahli, diikuti dengan sesi fitting untuk memastikan kesempurnaan.</p>
+                </div>
+            </div>
+            <a href="#" class="btn">Mulai Pesanan Kustom</a>
+        </div>
+    </section>
+
+    <!-- Bulk Purchase Section -->
+    <section class="bulk-purchase" id="bulk-purchase-section">
+        <div class="container">
+            <h2 class="section-title">Pembelian Jumlah Besar</h2>
+            <p style="text-align: center; max-width: 700px; margin: 0 auto 40px; color: var(--text-light);">
+                Dapatkan penawaran menarik untuk pembelian dalam jumlah besar. Sempurna untuk kebutuhan perusahaan, seragam, atau acara khusus.
+            </p>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <i class="fas fa-tags"></i>
+                    <h4>Harga Khusus</h4>
+                    <p>Nikmati harga spesial untuk pembelian volume besar.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-paint-brush"></i>
+                    <h4>Kustomisasi Produk</h4>
+                    <p>Sesuaikan produk dengan logo atau identitas bisnis Anda.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-truck"></i>
+                    <h4>Pickup atau Delivery</h4>
+                    <p>Pilihan pengambilan atau pengiriman yang fleksibel.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-file-invoice"></i>
+                    <h4>Ketersediaan Invoice</h4>
+                    <p>Invoice resmi tersedia untuk keperluan pembukuan bisnis.</p>
+                </div>
+            </div>
+            <a href="#" class="btn">Konsultasi Bulk Order</a>
+        </div>
+    </section>
+
+    <!-- Promo Section -->
+    <section class="promo-section" id="promo-section">
+        <div class="container">
+            <h2 class="section-title">KAZUMI x BUSINESSWEEK Collaboration</h2>
+            <div class="promo-content">
+                <div class="promo-card">
+                    <img src="https://images.unsplash.com/photo-1523878288860-fd508837778e?auto=format&fit=crop&w=200&q=80" alt="Collaboration Logo">
+                    <h3>Penawaran Spesial Minggu Ini!</h3>
+                    <p>Dalam rangka kolaborasi eksklusif kami dengan BUSINESSWEEK, nikmati promo terbatas untuk gaya Anda!</p>
+                    <div class="promo-details">
+                        <div class="promo-item">
+                            <h4>Monday Special</h4>
+                            <span>Diskon 30% untuk pembelian 2 item</span>
+                        </div>
+                        <div class="promo-item">
+                            <h4>Cashback</h4>
+                            <span>IDR 8.000 dengan min. pembelian IDR 300.000</span>
+                        </div>
+                    </div>
+                    <a href="t-shirts.html" class="btn">Belanja Sekarang</a>
+                </div>
+                <div class="app-download">
+                    <p>Unduh aplikasi KAZUMI untuk pengalaman belanja yang lebih baik:</p>
+                    <div class="app-buttons">
+                        <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play"></a>
+                        <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="App Store"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>INFORMASI KAMI</h3>
+                    <ul>
+                        <li><a href="#about-us">Tentang KAZUMI</a></li>
+                        <li><a href="#">Sejarah Perusahaan</a></li>
+                        <li><a href="#">Karir</a></li>
+                        <li><a href="#">Ketentuan Kebijakan</a></li>
+                        <li><a href="#">Lokasi Store</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>BANTUAN</h3>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Kebijakan Pengembalian</a></li>
+                        <li><a href="#">Click & Collect</a></li>
+                        <li><a href="#">Pengiriman</a></li>
+                        <li><a href="#">Pembayaran</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>KATEGORI PRODUK</h3>
+                    <ul>
+                        <li><a href="t-shirts.html">T-Shirt</a></li>
+                        <li><a href="shirts.html">Shirt</a></li>
+                        <li><a href="pants.html">Pants</a></li>
+                        <li><a href="jackets.html">Jacket</a></li>
+                        <li><a href="#">Accessories</a></li>
+                        <li><a href="#promo-section">Sale</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>HUBUNGI KAMI</h3>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +62 21 1234 5678</li>
+                        <li><i class="fas fa-envelope"></i> info@kazumi.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Jl. Fashion No. 123, Jakarta</li>
+                    </ul>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 KAZUMI. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Placeholder for future JS
+    </script>
+</body>
+</html>
